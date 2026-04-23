@@ -1,11 +1,15 @@
 # BANK TRANSACTION PROCESSING SYSTEM
-### Student Information: ainaafeeya
-### Platform: Ubuntu
+### Student Information: Ainaa Sofeeya Amran
 ### Date: April 21, 2026
 
+## System Environment
+* OS: Ubuntu
+* Python Script: bank.py
+* Metrics Recorded: Execution time, transaction counts, final balance, and speedup relative to sequential execution.
 
 # 1. Problem Statement
-Banking systems process thousands of financial transactions daily, including deposits, withdrawals, and transfers. Processing these transactions efficiently is crucial for system performance. However, it is unclear whether using concurrent (threading) or parallel (multiprocessing) techniques provides better performance compared to traditional sequential processing. This project aims to compare these three approaches by processing 100,000 random bank transactions and measuring their execution times to determine which method is most efficient.
+Banking systems process thousands of financial transactions daily, including deposits, withdrawals, and transfers. Processing these transactions efficiently is crucial for system performance. However, it is unclear whether using concurrent (threading) or parallel (multiprocessing) techniques provides better performance compared to traditional sequential processing. This project aims to compare these three approaches by processing 30,500,000 random bank transactions and measuring their execution times to determine which method is most efficient.
+
 # 2. Objectives
 To implement three transaction processing methods:
 * Sequential processing (single-threaded)
@@ -13,13 +17,14 @@ To implement three transaction processing methods:
 * Parallel processing using multiprocessing.Pool<br>
 
 
-To generate 100,000 random transactions with three types: deposit, withdraw, and transfer
+To generate 30,500,000 random transactions with three types: deposit, withdraw, and transfer.
 
-To measure and record the execution time for each processing method
+To measure and record the execution time for each processing method.
 
-To calculate the speedup factor of concurrent and parallel methods compared to sequential
+To calculate the speedup factor of concurrent and parallel methods compared to sequential.
 
-To analyze which method performs best for this transaction processing workload
+To analyze which method performs best for this transaction processing workload.
+
 # 3. Implementation
 ## 3.1 Source Code 
 ```ssh
@@ -51,7 +56,7 @@ def run(trans, mode="seq"):
         return res, time.time()-start
  
 if __name__ == "__main__":
-        trans = gen(3000000)
+        trans = gen(30500000)
         print(f"Bank Transaction Processing {len(trans):,} transactions\n")
         res1, t1 = run(trans, "seq")
         bal = 10000 + sum(r[0] for r in res1)
@@ -84,26 +89,28 @@ if __name__ == "__main__":
 | parallel(transactions)   | Uses 4 processes to process 4 chunks                               |
 
 # 4. Output Results
-<img width="529" height="293" alt="image" src="https://github.com/user-attachments/assets/e959cd75-5763-4865-ac33-a4749df26eb5" />
+<img width="689" height="720" alt="image" src="https://github.com/user-attachments/assets/8cc8fef6-17bf-4e31-95b4-3d910f2e5352" />
 
 # 5. Performance Analysis
 ## 5.1 Results Summary
-| Processing Method       | Time (seconds) | Speedup |
-|------------------------|----------------|---------|
-| Sequential             | 0.5479         | 1.00x   |
-| Concurrent (4 threads) | 0.6608         | 0.83x   |
-| Parallel (4 processes) | 2.0571         | 0.27x   |
+| Transaction Volume | Sequential (s) | Concurrent (s) | Parallel (s) | Concurrent Speedup | Parallel Speedup | Status |
+|---|---|---|---|---|---|---|
+| 30,000,000 | 9.4899 | 12.8302 | 29.1679 | 0.74x | 0.33x | Completed |
+| 30,500,000 | 9.4198 | 10.6026 | 22.7562 | 0.89x | 0.41x | Completed |
+| 35,000,000 | — | — | — | — | — | Killed |
+| 40,000,000 | — | — | — | — | — | Killed |
+| 50,000,000 | — | — | — | — | — | Killed |
 
 ---
 
 ## 5.2 Transaction Statistics
 
-| Transaction Type | Count      |
-|----------------|------------|
-| Deposits        | 1,001,306  |
-| Withdrawals     | 998,334    |
-| Transfers       | 1,000,360  |
-| **Total**       | **3,000,000** |
+| Transaction Type | Count (30M) | Count (30.5M) |
+|---|---|---|
+| Deposits | 9,999,441 | 10,166,026 |
+| Withdrawals | 10,017,731 | 10,168,362 |
+| Transfers | 9,998,828 | 10,165,612 |
+| **Total** | **30,016,000** | **30,500,000** |
 
 ## 5.3 Analysis
 * Sequential (0.5479s): Fastest method. No overhead from thread or process creation. Simple and efficient for this workload.
